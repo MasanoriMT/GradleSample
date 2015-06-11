@@ -1,6 +1,7 @@
 package iti.co.jp.gradlesample;
 
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     TextView buildType;
     @ViewById
     TextView flavor;
+    @ViewById
+    TextView version;
 
     @AfterViews
     protected void init() {
@@ -31,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", appInfo.sourceDir);
         }
 
+        String versionStr = "";
+        try{
+            PackageInfo packageInfo = pm.getPackageInfo(getPackageName(), 0);
+            versionStr = String.format("%s(%d)", packageInfo.versionName, packageInfo.versionCode);
+        }catch(PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+        }
+
+        version.setText(versionStr);
         buildType.setText(BuildType.TYPE_NAME);
         flavor.setText(Flavor.FLAVOR_NAME);
     }
