@@ -1,9 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+String signingConfigFilePath = "${System.properties['user.home']}/signingConfigs/release.gradle"
+File signingConfigFile = new File(signingConfigFilePath)
+
 android {
 
-    apply from: "signingConfigs/release.gradle", to: android
+    signingConfigs {
+        sampleConfig {
+            keyAlias 'sample'
+            keyPassword 'xxxxx'
+            storeFile file("${System.properties['user.home']}/sample.jks")
+            storePassword 'xxxxx'
+        }
+    }
+    if(signingConfigFile.exists()) apply from: signingConfigFilePath, to: android
 
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
