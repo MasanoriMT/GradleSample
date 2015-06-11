@@ -1,8 +1,0 @@
-signingConfigs {
-    sampleConfig {
-        keyAlias 'sample'
-        keyPassword 'xxxxxx'
-        storeFile file('/Users/matoh/sample.jks')
-        storePassword 'xxxxxx'
-    }
-}
